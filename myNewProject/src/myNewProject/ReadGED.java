@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ReadGED {
 
     public static void main(String[] args) {
-    	
+    	//test
     	try {
 	    	File gedFile = new File("~/../../gedFile.ged");
 	        Scanner fileReader = new Scanner(gedFile);
