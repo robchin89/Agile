@@ -109,6 +109,18 @@ public class ReadGED {
 	        Families.add(family);
 	        // Done reading
 	        fileReader.close();
+	        System.out.println("Individuals:");
+	        //Individuals.sort(null);
+	        
+	        for(int i = 0; i < Individuals.size();i++){
+	        	System.out.println(Individuals.get(i));
+	        }
+	        
+	        System.out.println("Families:");
+	        //Families.sort(null);
+	        for(int i = 0; i < Families.size();i++){
+	        	System.out.println(Families.get(i));
+	        }
     	}
     	catch(IOException ex) {
     		   // there was some connection problem, or the file did not exist on the server,
