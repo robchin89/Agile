@@ -12,14 +12,28 @@ public class Person implements Comparable {
 	
 	public Date death;
 	
+	public Date marriage; 
 	
 	public String toString(){
-		return "Person ID: " + uniqueId + " Name: " + name + "Birth: " + birthday + "Death: " + death;
+		String ret = "Person ID: " + uniqueId + " Name: " + name + "Birth: " + birthday;
+		if(death != null){
+			ret += " Death: " + death;
+		}
+		if(marriage != null){
+			ret += " Married: " + marriage;
+		}
+		return  ret;
 	}
 
-	public void checkBirthDeath(){
+	public void checkBirthBeforeDeath(){
 		if(birthday != null && death != null && death.before(birthday)){
-			System.out.println("Died before birth!");
+			System.out.println(name + " died before birth!");
+		}
+	}
+	
+	public void checkMarriageBeforeDeath(){
+		if(death != null && marriage != null && death.before(marriage)){
+			System.out.println(name + " married before birth!");
 		}
 	}
 	

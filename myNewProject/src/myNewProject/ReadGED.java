@@ -122,7 +122,16 @@ public class ReadGED {
 	            	}
 	            }
 	            
-
+	            if(level.equals("1") && tag.equals("MARR")){
+	            	level = fileReader.next();
+		            tag = fileReader.next();
+		            value = fileReader.nextLine().trim();
+		            if(level.equals("2") && tag.equals("DATE")){
+		            	Date marriage = parseDate(value);
+		            	family.wife.marriage = marriage;
+		            	family.husband.marriage = marriage;
+		            }
+	            }
 	            
 	            //Check for invalid tag
 	            validTag = false;
@@ -144,7 +153,10 @@ public class ReadGED {
 	        //Individuals.sort(null);
 	        
 	        for(int i = 0; i < Individuals.size();i++){
-	        	System.out.println(Individuals.get(i));
+	        	Person individual = Individuals.get(i);
+	        	System.out.println(individual);
+	        	individual.checkBirthBeforeDeath();
+	        	individual.checkMarriageBeforeDeath();
 	        }
 	        
 	        System.out.println("Families:");
