@@ -3,12 +3,27 @@ package myNewProject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.lang.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class ReadGED {
 
+	private static Date parseDate(String date){
+		try{
+        	DateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+        	return df.parse(date);
+		} catch(ParseException e){
+        		System.out.println("Could not parse date!");
+        }
+		return null;
+	}
+	
     public static void main(String[] args) {
     	//test
     	try {
@@ -36,14 +51,14 @@ public class ReadGED {
 	            //Read tag
 	            tag = fileReader.next();
 	
-	            //Read in the rest of the line
-	            value = fileReader.nextLine();
-	
+	            //Read in the rest of the line - get rid of leading space.
+	            value = fileReader.nextLine().trim();
+	            
 	            //Print out the information
 	            System.out.println(level + " " + tag + " " + value);
 	            System.out.println("Level: " + level);
 	
-	            if(level.equals("0") && value.equals(" INDI")){
+	            if(level.equals("0") && value.equals("INDI")){
 	            	if(person == null){
 	            		person = new Person();
 	            		person.uniqueId = tag;
@@ -58,9 +73,25 @@ public class ReadGED {
 	            	person.name = value;
 	            }
 	            
+	            if(level.equals("1") && tag.equals("BIRT")){
+		            level = fileReader.next();
+		            tag = fileReader.next();
+		            value = fileReader.nextLine().trim();
+		            if(level.equals("2") && tag.equals("DATE")){
+		            	person.birthday = parseDate(value);
+		            }
+	            }
+
+	            if(level.equals("1") && tag.equals("DEAT") && value.equals("Y")){
+		            level = fileReader.next();
+		            tag = fileReader.next();
+		            value = fileReader.nextLine().trim();
+		            if(level.equals("2") && tag.equals("DATE")){
+		            	person.death = parseDate(value);
+		            }
+	            }
 	            
-	            
-	            if(level.equals("0") && value.equals(" FAM")){
+	            if(level.equals("0") && value.equals("FAM")){
 	            	if(lastIndividual){
 	            		Individuals.add(person);
 	            		lastIndividual = false;
@@ -80,7 +111,7 @@ public class ReadGED {
 	            
 	            if(tag.equals("WIFE") || tag.equals("CHIL") || tag.equals("HUSB")){
 	            	int end = value.lastIndexOf("@");
-	            	String uniqueId = value.substring(3, end);
+	            	String uniqueId = value.substring(2, end);
 	            	int arrayIndex = Integer.parseInt(uniqueId) - 1;
 	            	if(tag.equals("WIFE")){
 	            		family.wife = Individuals.get(arrayIndex);
