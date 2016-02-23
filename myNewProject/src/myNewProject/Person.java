@@ -14,6 +14,10 @@ public class Person implements Comparable {
 	
 	public Date marriage; 
 	
+	public Date divorce;
+	
+	public String spouse;
+	
 	public String toString(){
 		String ret = "Person ID: " + uniqueId + " Name: " + name + "Birth: " + birthday;
 		if(death != null){
@@ -22,7 +26,7 @@ public class Person implements Comparable {
 		if(marriage != null){
 			ret += " Married: " + marriage;
 		}
-		return  ret;
+		return ret;
 	}
 
 	public void checkBirthBeforeDeath(){
@@ -34,6 +38,16 @@ public class Person implements Comparable {
 	public void checkMarriageBeforeDeath(){
 		if(death != null && marriage != null && death.before(marriage)){
 			System.out.println(name + " married before birth!");
+		}
+	}
+	
+
+	
+	//check birth before marriage
+	public void checkBirthBeforeMarriage()
+	{
+		if(birthday != null && marriage != null && birthday.before(marriage)){
+			System.out.println(name + " birth before marriage!");
 		}
 	}
 	

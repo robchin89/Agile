@@ -1,16 +1,15 @@
 package myNewProject;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-import java.lang.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class ReadGED {
 
@@ -27,8 +26,15 @@ public class ReadGED {
     public static void main(String[] args) {
     	//test
     	try {
-	    	File gedFile = new File("~/../../gedFile.ged");
-	        Scanner fileReader = new Scanner(gedFile);
+    		URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
+    		//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
+    		//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
+    		//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/Family-3-22-Feb-2016.ged"); //testing bigamy
+    		Scanner fileReader = new Scanner(url.openStream());
+	    	
+    		
+    		//File gedFile = new File("~/../../gedFile.ged");
+	        //Scanner fileReader = new Scanner(gedFile);
 	
 	        String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
 	        String level;
@@ -133,6 +139,18 @@ public class ReadGED {
 		            }
 	            }
 	            
+	            //add divorce
+	            if(level.equals("1") && tag.equals("DIV")){
+	            	level = fileReader.next();
+		            tag = fileReader.next();
+		            value = fileReader.nextLine().trim();
+		            if(level.equals("2") && tag.equals("DATE")){
+		            	Date divorce = parseDate(value);
+		            	family.wife.divorce = divorce;
+		            	family.husband.divorce = divorce;
+		            }
+	            }
+	            
 	            //Check for invalid tag
 	            validTag = false;
 	            for(int i = 0; i < tags.length; i++){
@@ -149,7 +167,7 @@ public class ReadGED {
 	        Families.add(family);
 	        // Done reading
 	        fileReader.close();
-	        System.out.println("Individuals:");
+	        System.out.println("\nIndividuals:");
 	        //Individuals.sort(null);
 	        
 	        for(int i = 0; i < Individuals.size();i++){
@@ -157,12 +175,57 @@ public class ReadGED {
 	        	System.out.println(individual);
 	        	individual.checkBirthBeforeDeath();
 	        	individual.checkMarriageBeforeDeath();
+	        	individual.checkBirthBeforeMarriage(); //check birth before marriage
 	        }
 	        
-	        System.out.println("Families:");
+	        System.out.println("\nFamilies:");
 	        //Families.sort(null);
+	        
 	        for(int i = 0; i < Families.size();i++){
-	        	System.out.println(Families.get(i));
+	        	System.out.println(Families.get(i)); 
+	        	
+	        	//CHECK BIGAMY START
+	        	for(int j = 0; j < Families.size(); j++){
+	        		if (i!=j && (Families.get(i).husband == Families.get(j).husband)){
+	        			//wife of family i death before husband married j's wife
+	        			if(i!=j && Families.get(i).wife.death != null && Families.get(j).wife.marriage != null && Families.get(i).wife.death.before(Families.get(j).wife.marriage)){
+	        				System.out.println("No Bigamy (Widowed)");
+	        			}else{
+	        			//wife of family j death before husband married j's wife
+	        			if(i!=j&&Families.get(j).wife.death != null && Families.get(i).wife.marriage != null && Families.get(j).wife.death.before(Families.get(i).wife.marriage)){
+	        				System.out.println("No Bigamy (Widowed)");
+	        			}else
+	        			{
+	        				System.out.println("There's Bigamy with " + Families.get(i).husband.name +" Bigamy with " + Families.get(i).wife.name +" and "+ Families.get(j).wife.name + "\n");
+	        			
+	        			}
+	        			}
+	        			
+	        		}
+	        		else
+	        		{
+	        			if (i!=j && (Families.get(i).wife == Families.get(j).wife)){
+		        			if(i!=j && Families.get(i).husband.death != null && Families.get(j).husband.marriage != null && Families.get(i).husband.death.before(Families.get(j).husband.marriage)){
+		        				System.out.println("No Bigamy (Widowed)");
+		        			}
+		        			else
+		        			{
+		        			//wife of family j death before husband married j's wife
+			        			if(i!=j&&Families.get(j).wife.death != null && Families.get(i).husband.marriage != null && Families.get(j).husband.death.before(Families.get(i).husband.marriage)){
+			        				System.out.println("No Bigamy (Widowed)");
+			        			}
+			        			else
+			        			{
+			        			
+			        				System.out.println("There's Bigamy with " + Families.get(i).wife.name +" Bigamy with " + Families.get(i).husband.name + " and " + Families.get(j).husband.name + "\n");
+			        	        
+			        			}
+		        			}
+	        			}
+	        		}
+	        	}
+	        	// CHECK BIGAMY END
+	        	
 	        }
     	}
     	catch(IOException ex) {

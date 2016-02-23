@@ -15,6 +15,7 @@ public class Family implements Comparable{
 	public String toString(){
 		return "Family ID: "+uniqueId+" Husband: "+husband+" Wife: "+wife;
 	}
+	
 
 	@Override
 	public int compareTo(Object o) {
