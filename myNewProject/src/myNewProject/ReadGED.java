@@ -1,5 +1,6 @@
 package myNewProject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -28,13 +29,14 @@ public class ReadGED {
 		//test
 		try {
 			URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
+			
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/Family-3-22-Feb-2016.ged"); //testing bigamy
 			Scanner fileReader = new Scanner(url.openStream());
 
 
-			//File gedFile = new File("~/../../gedFile.ged");
+			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged"); local test file.
 			//Scanner fileReader = new Scanner(gedFile);
 
 			String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
@@ -230,7 +232,13 @@ public class ReadGED {
 			}
 			System.out.println("\n");
 			System.out.println("Birthday List(next 30 days):");
+			System.out.println("-----------------------------");
 			ListBirthday(Individuals);
+			
+			System.out.println("\n");
+			System.out.println("Anniversary List(next 30 days):");
+			System.out.println("---------------------------------");
+			ListAnniversary(Families);
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -254,6 +262,46 @@ public class ReadGED {
 		}
 
 	}
+	
+	private static <list> void ListAnniversary(List<Family> Families){
+		SimpleDateFormat dt = new SimpleDateFormat("EEE, dd MMM"); 
+		for(int i = 0; i < Families.size();i++){
+			Date mdt = Families.get(i).husband.marriage;
+			Date hdt = Families.get(i).husband.death;
+			Date wdt =  Families.get(i).husband.death;
+			
+			String hnm = Families.get(i).husband.name;
+			String wnm = Families.get(i).wife.name;
+				//if ((ddt == null)){
+			if(!(mdt==null)){
+			if(daycompare(mdt)){
+					System.out.println("Husband: " + hnm);
+					System.out.println("Wife: " + wnm );
+					System.out.println("Marriage Anniversary: " + dt.format(mdt));
+					System.out.println("---------------------------------------");
+				}
+			};
+				
+				if (!(hdt==null)){
+				if(daycompare(hdt)){
+					System.out.println("Husband: " + hnm);
+					System.out.println("Husband's Death Anniversary: " + dt.format(hdt));
+					System.out.println("------------------------------------");
+	
+				}
+				}
+				if (!(wdt==null)){
+				 if (daycompare(wdt)){
+					System.out.println("Wife: " + wnm );
+					System.out.println("Wife's Death Anniversary: " + dt.format(wdt));
+					System.out.println("-----------------------------------");
+				 }
+				}
+		}
+		
+		}
+
+
 
 	public static boolean daycompare(Date birthday){
 		int thisyear = Calendar.getInstance().get(Calendar.YEAR);
