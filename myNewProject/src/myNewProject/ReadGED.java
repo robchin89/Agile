@@ -36,7 +36,7 @@ public class ReadGED {
 			Scanner fileReader = new Scanner(url.openStream());
 
 
-			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged"); local test file.
+			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
 			//Scanner fileReader = new Scanner(gedFile);
 
 			String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
@@ -236,7 +236,7 @@ public class ReadGED {
 			ListBirthday(Individuals);
 			
 			System.out.println("\n");
-			System.out.println("Anniversary List(next 30 days):");
+			System.out.println("Marriage Anniversary List(next 30 days):");
 			System.out.println("---------------------------------");
 			ListAnniversary(Families);
 		}
@@ -257,6 +257,7 @@ public class ReadGED {
 				if(daycompare(bdt)){
 					SimpleDateFormat dt = new SimpleDateFormat("EEE, dd MMM"); 
 					System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
+					System.out.println("-------------------------------------------------------");
 				};
 			}
 		}
@@ -272,7 +273,7 @@ public class ReadGED {
 			
 			String hnm = Families.get(i).husband.name;
 			String wnm = Families.get(i).wife.name;
-				//if ((ddt == null)){
+		if ((hdt == null) || (wdt==null)) {
 			if(!(mdt==null)){
 			if(daycompare(mdt)){
 					System.out.println("Husband: " + hnm);
@@ -280,26 +281,11 @@ public class ReadGED {
 					System.out.println("Marriage Anniversary: " + dt.format(mdt));
 					System.out.println("---------------------------------------");
 				}
-			};
-				
-				if (!(hdt==null)){
-				if(daycompare(hdt)){
-					System.out.println("Husband: " + hnm);
-					System.out.println("Husband's Death Anniversary: " + dt.format(hdt));
-					System.out.println("------------------------------------");
-	
-				}
-				}
-				if (!(wdt==null)){
-				 if (daycompare(wdt)){
-					System.out.println("Wife: " + wnm );
-					System.out.println("Wife's Death Anniversary: " + dt.format(wdt));
-					System.out.println("-----------------------------------");
-				 }
-				}
+			}
 		}
-		
+
 		}
+	}
 
 
 
