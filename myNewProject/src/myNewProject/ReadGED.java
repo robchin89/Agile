@@ -230,15 +230,22 @@ public class ReadGED {
 				// CHECK BIGAMY END
 
 			}
+			//sprint 1 US38 - list of up coming Birthday
 			System.out.println("\n");
-			System.out.println("Birthday List(next 30 days):");
+			System.out.println("US38 - Birthday List(next 30 days):");
 			System.out.println("-----------------------------");
 			ListBirthday(Individuals);
-			
+			//sprint 1 US39 - list of marriage anniversaries 
 			System.out.println("\n");
-			System.out.println("Marriage Anniversary List(next 30 days):");
+			System.out.println("US39 - Marriage Anniversary List(next 30 days):");
 			System.out.println("---------------------------------");
 			ListAnniversary(Families);
+			
+			//sprint 2 US37 - list of recent survivors
+			//System.out.println("\n");
+			//System.out.println("US37 - List of Survivors(last 30 days)");
+			//System.out.println("---------------------------------");
+			//ListSurvivors(Families, Individuals);
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -268,13 +275,13 @@ public class ReadGED {
 		SimpleDateFormat dt = new SimpleDateFormat("EEE, dd MMM"); 
 		for(int i = 0; i < Families.size();i++){
 			Date mdt = Families.get(i).husband.marriage;
+			Date mwdt = Families.get(i).wife.marriage;
 			Date hdt = Families.get(i).husband.death;
-			Date wdt =  Families.get(i).husband.death;
-			
+			Date wdt =  Families.get(i).wife.death;
 			String hnm = Families.get(i).husband.name;
 			String wnm = Families.get(i).wife.name;
 		if ((hdt == null) || (wdt==null)) {
-			if(!(mdt==null)){
+			if(!(mdt==null) || !(mwdt==null)){
 			if(daycompare(mdt)){
 					System.out.println("Husband: " + hnm);
 					System.out.println("Wife: " + wnm );
@@ -287,21 +294,27 @@ public class ReadGED {
 		}
 	}
 
+public static <list> void ListSurvivors(List<Family> Families, List<Person> Individuals){
+	for (int i = 0; i < Families.size();i++){
+		Date hdt = Families.get(i).husband.death;
+		Date wdt =  Families.get(i).husband.death;
+	}
+	
+}
 
-
-	public static boolean daycompare(Date birthday){
+	public static boolean daycompare(Date impDates){
 		int thisyear = Calendar.getInstance().get(Calendar.YEAR);
-		Calendar birthdate = Calendar.getInstance();
+		Calendar importantDates = Calendar.getInstance();
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR, 0);
 		today.set(Calendar.MINUTE, 0);
 		today.set(Calendar.SECOND, 0);
 		today.set(Calendar.MILLISECOND, 0);
 		today.set(Calendar.HOUR_OF_DAY, 0);
-		birthdate.setTime(birthday);
-		birthdate.set(Calendar.YEAR, thisyear);
-		if(birthdate.before(today))
-			birthdate.set(Calendar.YEAR, thisyear + 1);
+		importantDates.setTime(impDates);
+		importantDates.set(Calendar.YEAR, thisyear);
+		if(importantDates.before(today))
+			importantDates.set(Calendar.YEAR, thisyear + 1);
 
 		//today.add(Calendar.DATE,  -1);
 		Calendar next30day = Calendar.getInstance();
@@ -312,14 +325,19 @@ public class ReadGED {
 		next30day.set(Calendar.MILLISECOND, 0);
 		next30day.add(Calendar.DATE, 30);
 		
-		if(birthdate.before(next30day) && !today.after(birthdate)){
-			//System.out.println(birthdate.getTime());
-			//System.out.println(today.getTime());
-			//System.out.println(next30day.getTime());
-		return true;
+		//today.add(Calendar.DATE,  -1);
+		Calendar last30day = Calendar.getInstance();
+		last30day.set(Calendar.HOUR, 0);
+		last30day.set(Calendar.MINUTE, 0);
+		last30day.set(Calendar.SECOND, 0);
+		last30day.set(Calendar.HOUR_OF_DAY, 0);
+		last30day.set(Calendar.MILLISECOND, 0);
+		last30day.add(Calendar.DATE, 30);
+		
+		if(importantDates.before(next30day) && !today.after(importantDates)){
+			return true;
 		}
 		return false;
-
 	}
 
 

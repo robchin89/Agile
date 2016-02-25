@@ -20,5 +20,5 @@ public class Family implements Comparable{
 	@Override
 	public int compareTo(Object o) {
 		return this.uniqueId.compareTo(((Family)o).uniqueId);
-	}
+			}
 }
