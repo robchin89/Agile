@@ -246,16 +246,12 @@ public class ReadGED {
 				//CHECK MULTIPLE BIRTHS START
 				if(!Families.get(i).checkMultipleBirths()){
 					System.out.println("More than 4 children have the same birth date in family "+Families.get(i).uniqueId + ".");
-				}else{
-					System.out.println("More than 4 children do not have the same birth date in family "+Families.get(i).uniqueId + ".");
 				}
 				//CHECK MULTIPLE BIRTHS END
 				
 				//CHECK SURNAME START
 				if(!Families.get(i).checkMaleLastNames()){
 					System.out.println("All the males in family " + Families.get(i).uniqueId + " do not have the same last name.");
-				} else{
-					System.out.println("All the males in family " + Families.get(i).uniqueId + " have the same last name.");
 				}
 				//CHECK SURNAME END
 			}
