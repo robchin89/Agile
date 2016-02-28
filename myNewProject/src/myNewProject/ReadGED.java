@@ -205,15 +205,15 @@ public class ReadGED {
 				for(int j = 0; j < Families.size(); j++){
 					if (i!=j && (Families.get(i).husband == Families.get(j).husband)){
 						//wife of family i death before husband married j's wife
-						if(i!=j && Families.get(i).wife.death != null && Families.get(j).wife.marriage != null && Families.get(i).wife.death.before(Families.get(j).wife.marriage)){
+						if(Families.get(i).wife.death != null && Families.get(j).wife.marriage != null && Families.get(i).wife.death.before(Families.get(j).wife.marriage)){
 							//
 						}else{
 							//wife of family j death before husband married j's wife
-							if(i!=j&&Families.get(j).wife.death != null && Families.get(i).wife.marriage != null && Families.get(j).wife.death.before(Families.get(i).wife.marriage)){
+							if(Families.get(j).wife.death != null && Families.get(i).wife.marriage != null && Families.get(j).wife.death.before(Families.get(i).wife.marriage)){
 								//
 							}else
 							{
-								System.out.println("There's Bigamy with " + Families.get(i).husband.name +" Bigamy with " + Families.get(i).wife.name +" and "+ Families.get(j).wife.name + "\n");
+								System.out.println("There's Bigamy with " + Families.get(i).husband.name +" Bigamy with " + Families.get(i).wife.name +" and "+ Families.get(j).wife.name);
 
 							}
 						}
@@ -222,19 +222,19 @@ public class ReadGED {
 					else
 					{
 						if (i!=j && (Families.get(i).wife == Families.get(j).wife)){
-							if(i!=j && Families.get(i).husband.death != null && Families.get(j).husband.marriage != null && Families.get(i).husband.death.before(Families.get(j).husband.marriage)){
+							if(Families.get(i).husband.death != null && Families.get(j).husband.marriage != null && Families.get(i).husband.death.before(Families.get(j).husband.marriage)){
 								//
 							}
 							else
 							{
 								//wife of family j death before husband married j's wife
-								if(i!=j&&Families.get(j).wife.death != null && Families.get(i).husband.marriage != null && Families.get(j).husband.death.before(Families.get(i).husband.marriage)){
+								if(Families.get(j).wife.death != null && Families.get(i).husband.marriage != null && Families.get(j).husband.death.before(Families.get(i).husband.marriage)){
 									//
 								}
 								else
 								{
 
-									System.out.println("There's Bigamy with " + Families.get(i).wife.name +" Bigamy with " + Families.get(i).husband.name + " and " + Families.get(j).husband.name + "\n");
+									System.out.println("There's Bigamy with " + Families.get(i).wife.name +" Bigamy with " + Families.get(i).husband.name + " and " + Families.get(j).husband.name);
 
 								}
 							}
