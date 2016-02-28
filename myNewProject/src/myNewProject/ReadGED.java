@@ -290,7 +290,7 @@ public class ReadGED {
 			String nm = individuals.get(i).name;
 			if ((ddt == null)){
 				if(daycompare(bdt)){
-					SimpleDateFormat dt = new SimpleDateFormat("EEE, dd MMM"); 
+					SimpleDateFormat dt = new SimpleDateFormat("dd MMM"); 
 					System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
 					System.out.println("-------------------------------------------------------");
 				};
@@ -300,7 +300,7 @@ public class ReadGED {
 	}
 	
 	private static <list> void ListAnniversary(List<Family> Families){
-		SimpleDateFormat dt = new SimpleDateFormat("EEE, dd MMM"); 
+		SimpleDateFormat dt = new SimpleDateFormat("dd MMM"); 
 		for(int i = 0; i < Families.size();i++){
 			Date mdt = Families.get(i).husband.marriage;
 			Date mwdt = Families.get(i).wife.marriage;
