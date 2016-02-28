@@ -40,17 +40,16 @@ public class Person implements Comparable {
 	
 	public void checkMarriageBeforeDeath(){
 		if(death != null && marriage != null && death.before(marriage)){
-			System.out.println(name + " married before birth!");
+			System.out.println(name + " died before married!");
 		}
 	}
 	
 
 	
 	//check birth before marriage
-	public void checkBirthBeforeMarriage()
-	{
-		if(birthday != null && marriage != null && birthday.before(marriage)){
-			System.out.println(name + " birth before marriage!");
+	public void checkBirthBeforeMarriage(){
+		if(birthday != null && marriage != null && marriage.before(birthday)){
+			System.out.println(name + " married before birth!");
 		}
 	}
 	

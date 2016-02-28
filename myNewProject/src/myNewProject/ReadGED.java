@@ -181,9 +181,15 @@ public class ReadGED {
 			for(int i = 0; i < Individuals.size();i++){
 				Person individual = Individuals.get(i);
 				System.out.println(individual);
+				
+				// Birth Before Death
 				individual.checkBirthBeforeDeath();
+				
+				// Marriage before Death
 				individual.checkMarriageBeforeDeath();
-				individual.checkBirthBeforeMarriage(); //check birth before marriage
+				
+				// Birth before Marriage
+				individual.checkBirthBeforeMarriage(); 
 			}
 
 			System.out.println("\nFamilies:");
