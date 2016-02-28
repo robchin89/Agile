@@ -28,7 +28,6 @@ public class ReadGED {
 	public static void main(String[] args) {
 		//test
 		try {
-			URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
 			
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
@@ -36,8 +35,10 @@ public class ReadGED {
 			//Scanner fileReader = new Scanner(url.openStream());
 			
 
+			//String filePath = new File("").getAbsolutePath();
+			//System.out.println(filePath);
 			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
-			File gedFile = new File("C:\\Users\\Zack\\Desktop\\SSW555\\Week5\\AcceptanceTest.ged");// local test file.
+			File gedFile = new File("gedFile.ged");// local test file.
 			Scanner fileReader = new Scanner(gedFile);
 
 			String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
