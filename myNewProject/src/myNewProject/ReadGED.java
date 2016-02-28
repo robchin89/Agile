@@ -205,28 +205,40 @@ public class ReadGED {
 				for(int j = 0; j < Families.size(); j++){
 					if (i!=j && (Families.get(i).husband == Families.get(j).husband)){
 						//wife of family i death before husband married j's wife
-						if(!(i!=j && Families.get(i).wife.death != null && Families.get(j).wife.marriage != null && Families.get(i).wife.death.before(Families.get(j).wife.marriage)) || 
-								!(i!=j&&Families.get(j).wife.death != null && Families.get(i).wife.marriage != null && Families.get(j).wife.death.before(Families.get(i).wife.marriage)) 
-								)
-						{
-							//System.out.println("1 No Bigamy (Widowed)");
-							System.out.println("There's Bigamy with " + Families.get(i).husband.name +" Bigamy with " + Families.get(i).wife.name +" and "+ Families.get(j).wife.name + "\n");
+						if(i!=j && Families.get(i).wife.death != null && Families.get(j).wife.marriage != null && Families.get(i).wife.death.before(Families.get(j).wife.marriage)){
+							//
+						}else{
+							//wife of family j death before husband married j's wife
+							if(i!=j&&Families.get(j).wife.death != null && Families.get(i).wife.marriage != null && Families.get(j).wife.death.before(Families.get(i).wife.marriage)){
+								//
+							}else
+							{
+								System.out.println("There's Bigamy with " + Families.get(i).husband.name +" Bigamy with " + Families.get(i).wife.name +" and "+ Families.get(j).wife.name + "\n");
 
+							}
+						}
 
 					}
 					else
 					{
 						if (i!=j && (Families.get(i).wife == Families.get(j).wife)){
-							if(
-									!(i!=j && Families.get(i).husband.death != null && Families.get(j).husband.marriage != null && Families.get(i).husband.death.before(Families.get(j).husband.marriage)) 
-									|| 
-									!(i!=j&&Families.get(j).wife.death != null && Families.get(i).husband.marriage != null && Families.get(j).husband.death.before(Families.get(i).husband.marriage))
-									)
-									{
-										System.out.println("There's Bigamy with " + Families.get(i).wife.name +" Bigamy with " + Families.get(i).husband.name + " and " + Families.get(j).husband.name + "\n");
-									}
+							if(i!=j && Families.get(i).husband.death != null && Families.get(j).husband.marriage != null && Families.get(i).husband.death.before(Families.get(j).husband.marriage)){
+								//
+							}
+							else
+							{
+								//wife of family j death before husband married j's wife
+								if(i!=j&&Families.get(j).wife.death != null && Families.get(i).husband.marriage != null && Families.get(j).husband.death.before(Families.get(i).husband.marriage)){
+									//
+								}
+								else
+								{
+
+									System.out.println("There's Bigamy with " + Families.get(i).wife.name +" Bigamy with " + Families.get(i).husband.name + " and " + Families.get(j).husband.name + "\n");
+
+								}
+							}
 						}
-					}
 					}
 				}
 				// CHECK BIGAMY END
