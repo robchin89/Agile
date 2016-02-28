@@ -28,6 +28,7 @@ public class ReadGED {
 	public static void main(String[] args) {
 		//test
 		try {
+			URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
 			
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
@@ -36,9 +37,9 @@ public class ReadGED {
 			
 
 			//String filePath = new File("").getAbsolutePath();
-			//System.out.println(filePath);
+			//System.out.println
 			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
-			File gedFile = new File("gedFile.ged");// local test file.
+			File gedFile = new File("./gedFile.ged");// local test file.
 			Scanner fileReader = new Scanner(gedFile);
 
 			String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
@@ -181,7 +182,7 @@ public class ReadGED {
 
 			for(int i = 0; i < Individuals.size();i++){
 				Person individual = Individuals.get(i);
-				System.out.println(individual);
+				System.out.println("\n" + individual);
 				
 				// Birth Before Death
 				individual.checkBirthBeforeDeath();
@@ -197,7 +198,8 @@ public class ReadGED {
 			//Families.sort(null);
 
 			for(int i = 0; i < Families.size();i++){
-				System.out.println(Families.get(i)); 
+				
+				System.out.println("\n" + Families.get(i)); 
 
 				//CHECK BIGAMY START
 				for(int j = 0; j < Families.size(); j++){
