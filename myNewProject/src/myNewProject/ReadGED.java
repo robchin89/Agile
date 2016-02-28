@@ -34,7 +34,7 @@ public class ReadGED {
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/Family-3-22-Feb-2016.ged"); //testing bigamy
 			Scanner fileReader = new Scanner(url.openStream());
-
+			
 
 			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
 			//Scanner fileReader = new Scanner(gedFile);
@@ -81,7 +81,11 @@ public class ReadGED {
 				if(level.equals("1") && tag.equals("NAME")){
 					person.name = value;
 				}
-
+				
+				if(level.equals("1") && tag.equals("SEX")){
+					person.gender = value;
+				}
+				
 				if(level.equals("1") && tag.equals("BIRT")){
 					level = fileReader.next();
 					tag = fileReader.next();
@@ -228,8 +232,24 @@ public class ReadGED {
 					}
 				}
 				// CHECK BIGAMY END
-
+				
+				//CHECK MULTIPLE BIRTHS START
+				if(!Families.get(i).checkMultipleBirths()){
+					System.out.println("More than 4 children have the same birth date in family "+Families.get(i).uniqueId + ".");
+				}else{
+					System.out.println("More than 4 children do not have the same birth date in family "+Families.get(i).uniqueId + ".");
+				}
+				//CHECK MULTIPLE BIRTHS END
+				
+				//CHECK SURNAME START
+				if(!Families.get(i).checkMaleLastNames()){
+					System.out.println("All the males in family " + Families.get(i).uniqueId + " do not have the same last name.");
+				} else{
+					System.out.println("All the males in family " + Families.get(i).uniqueId + " have the same last name.");
+				}
+				//CHECK SURNAME END
 			}
+			
 			//sprint 1 US38 - list of up coming Birthday
 			System.out.println("\n");
 			System.out.println("US38 - Birthday List(next 30 days):");
@@ -339,6 +359,4 @@ public static <list> void ListSurvivors(List<Family> Families, List<Person> Indi
 		}
 		return false;
 	}
-
-
 }

@@ -9,6 +9,8 @@ public class Person implements Comparable {
 	
 	public String name;
 	
+	public String gender;
+	
 	public Date birthday;
 	
 	public Date death;
@@ -50,6 +52,11 @@ public class Person implements Comparable {
 		if(birthday != null && marriage != null && birthday.before(marriage)){
 			System.out.println(name + " birth before marriage!");
 		}
+	}
+	
+	public String getLastName(){
+		String[] names = name.split(" ");
+		return names[names.length-1].substring(1, names[names.length-1].length()-1);
 	}
 	
 	@Override
