@@ -14,7 +14,7 @@ public class Family implements Comparable{
 	public List<Person> children;
 	
 	public String toString(){
-		return "Family ID: "+uniqueId+" Husband: "+husband+" Wife: "+wife;
+		return "Family ID: "+uniqueId+" Husband: "+husband.name+" Wife: "+wife.name;
 	}
 	
 

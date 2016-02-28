@@ -33,11 +33,12 @@ public class ReadGED {
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/Family-3-22-Feb-2016.ged"); //testing bigamy
-			Scanner fileReader = new Scanner(url.openStream());
+			//Scanner fileReader = new Scanner(url.openStream());
 			
 
 			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
-			//Scanner fileReader = new Scanner(gedFile);
+			File gedFile = new File("C:\\Users\\Zack\\Desktop\\SSW555\\Week5\\AcceptanceTest.ged");// local test file.
+			Scanner fileReader = new Scanner(gedFile);
 
 			String[] tags = {"INDI", "NAME","SEX","BIRT","DEAT","FAMC","FAMS","FAM","MARR","HUSB","WIFE","CHIL","DIV","DATE","HEAD","TRLR","NOTE"};
 			String level;
