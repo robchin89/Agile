@@ -268,10 +268,10 @@ public class ReadGED {
 			ListAnniversary(Families);
 			
 			//sprint 2 US37 - list of recent survivors
-			//System.out.println("\n");
-			//System.out.println("US37 - List of Survivors(last 30 days)");
-			//System.out.println("---------------------------------");
-			//ListSurvivors(Families, Individuals);
+			System.out.println("\n");
+			System.out.println("US37 - List of Survivors(last 30 days)");
+			System.out.println("---------------------------------");
+			ListSurvivors(Families, Individuals);
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -320,14 +320,33 @@ public class ReadGED {
 		}
 	}
 
-public static <list> void ListSurvivors(List<Family> Families, List<Person> Individuals){
-	for (int i = 0; i < Families.size();i++){
-		Date hdt = Families.get(i).husband.death;
-		Date wdt =  Families.get(i).husband.death;
+	public static <list> void ListSurvivors(List<Family> Families, List<Person> Individuals){
+		for (int i = 0; i < Families.size();i++){
+			Date hdt = Families.get(i).husband.death;
+			Date wdt =  Families.get(i).wife.death;
+			if (!(hdt == null)) {
+				if((wdt==null)){
+					//List survivors including spouse
+					String wnm = Families.get(i).wife.name;
+					for (int y=0; y< Families.get(i).children.size();y++ ){
+						String cnm2 = Families.get(i).children.get(y).name;
+						System.out.println(cnm2);
+					}
+					System.out.println("Surving spouse and children: "+wnm);
+				}
+				else{
+					//List survivors excluding wife.
+					
+					for (int y=0; y< Families.get(i).children.size();y++ ){
+						String cnm2 = Families.get(i).children.get(y).name;
+						System.out.println(cnm2);
+					}
+					
+				}
+			}
+		}
+		
 	}
-	
-}
-
 	public static boolean daycompare(Date impDates){
 		int thisyear = Calendar.getInstance().get(Calendar.YEAR);
 		Calendar importantDates = Calendar.getInstance();
