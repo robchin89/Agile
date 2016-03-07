@@ -70,4 +70,50 @@ public class Family implements Comparable{
 		}
 		return true;
 	}
+	
+	//US37 - List Survivors
+	public static <list> void ListSurvivors(List<Family> Families, List<Person> Individuals){
+		for (int i = 0; i < Families.size();i++){
+			Date hdt = Families.get(i).husband.death;
+			Date wdt =  Families.get(i).wife.death;
+			if (!(hdt == null)) {
+				if((wdt==null)){
+					//List survivors including spouse
+					String wnm = Families.get(i).wife.name;
+					for (int y=0; y< Families.get(i).children.size();y++ ){
+						String cnm2 = Families.get(i).children.get(y).name;
+						System.out.println("Surviving children " + cnm2);
+					}
+					System.out.println("Surviving spouse: "+wnm);
+				}
+				else{
+					//List survivors excluding wife.
+					
+					for (int y=0; y< Families.get(i).children.size();y++ ){
+						String cnm2 = Families.get(i).children.get(y).name;
+						System.out.println("Surviving children " + cnm2);
+					}
+					
+				}
+			}
+		}
+		
+	}
+	
+	//US30-Surviving couple
+	public static <list> void ListSurvingCouples(List<Family> Families, List<Person> Individuals){
+		for (int i = 0; i < Families.size();i++){
+			Date hdt = Families.get(i).husband.death;
+			Date wdt =  Families.get(i).wife.death;
+			
+			if ((hdt== null)) {
+				if((wdt==null)){
+					//List surviving couples name
+					String h = Families.get(i).husband.name;
+					String w = Families.get(i).wife.name;
+	     			System.out.println("Living couples: "+h + "-" + w);
+				}
+			}				
+		}
+	}
 }
