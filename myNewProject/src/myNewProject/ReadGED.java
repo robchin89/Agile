@@ -272,6 +272,11 @@ public class ReadGED {
 			System.out.println("US37 - List of Survivors(last 30 days)");
 			System.out.println("---------------------------------");
 			ListSurvivors(Families, Individuals);
+			
+			System.out.println("\n");
+			System.out.println("US30 - List of married couples alive");
+			System.out.println("---------------------------------");
+			ListSurvingCouples(Families, Individuals);
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -330,16 +335,16 @@ public class ReadGED {
 					String wnm = Families.get(i).wife.name;
 					for (int y=0; y< Families.get(i).children.size();y++ ){
 						String cnm2 = Families.get(i).children.get(y).name;
-						System.out.println(cnm2);
+						System.out.println("Surviving children " + cnm2);
 					}
-					System.out.println("Surving spouse and children: "+wnm);
+					System.out.println("Surviving spouse: "+wnm);
 				}
 				else{
 					//List survivors excluding wife.
 					
 					for (int y=0; y< Families.get(i).children.size();y++ ){
 						String cnm2 = Families.get(i).children.get(y).name;
-						System.out.println(cnm2);
+						System.out.println("Surviving children " + cnm2);
 					}
 					
 				}
@@ -347,6 +352,24 @@ public class ReadGED {
 		}
 		
 	}
+	
+
+	public static <list> void ListSurvingCouples(List<Family> Families, List<Person> Individuals){
+		for (int i = 0; i < Families.size();i++){
+			Date hdt = Families.get(i).husband.death;
+			Date wdt =  Families.get(i).wife.death;
+			
+			if ((hdt== null)) {
+				if((wdt==null)){
+					//List surviving couples name
+					String h = Families.get(i).husband.name;
+					String w = Families.get(i).wife.name;
+	     			System.out.println("Living couples: "+h + "-" + w);
+				}
+			}				
+		}
+	}
+	
 	public static boolean daycompare(Date impDates){
 		int thisyear = Calendar.getInstance().get(Calendar.YEAR);
 		Calendar importantDates = Calendar.getInstance();
