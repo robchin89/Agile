@@ -28,7 +28,7 @@ public class ReadGED {
 	public static void main(String[] args) {
 		//test
 		try {
-			URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
+			//URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
 			
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
@@ -39,6 +39,7 @@ public class ReadGED {
 			//String filePath = new File("").getAbsolutePath();
 			//System.out.println
 			//File gedFile = new File("\\Stevens\\Agile\\gedFileTest.ged");// local test file.
+			
 			File gedFile = new File("./gedFile.ged");// local test file.
 			Scanner fileReader = new Scanner(gedFile);
 
@@ -95,6 +96,7 @@ public class ReadGED {
 					value = fileReader.nextLine().trim();
 					if(level.equals("2") && tag.equals("DATE")){
 						person.birthday = parseDate(value);
+					
 					}
 				}
 
@@ -104,6 +106,7 @@ public class ReadGED {
 					value = fileReader.nextLine().trim();
 					if(level.equals("2") && tag.equals("DATE")){
 						person.death = parseDate(value);
+					
 					}
 				}
 
@@ -192,6 +195,9 @@ public class ReadGED {
 				
 				// Birth before Marriage
 				individual.checkBirthBeforeMarriage(); 
+				
+				//Check less than 150 years old
+				individual.checkLessThan150();
 			}
 
 			System.out.println("\nFamilies:");
@@ -277,6 +283,14 @@ public class ReadGED {
 			System.out.println("US30 - List of married couples alive");
 			System.out.println("---------------------------------");
 			Family.ListSurvingCouples(Families, Individuals);
+			
+			
+			//sprint 2 US29 - list deceased
+			System.out.println("\n");
+			System.out.println("US29 - Deceased List:");
+			System.out.println("-----------------------------");
+			ListDeceased(Individuals);
+			
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -301,6 +315,22 @@ public class ReadGED {
 		}
 
 	}
+	
+	private static <list> void ListDeceased(List<Person> individuals){
+		for(int i = 0; i < individuals.size();i++){
+		//Date bdt = individuals.get(i).birthday;
+		Date ddt = individuals.get(i).death;
+		String nm = individuals.get(i).name;
+		if ((ddt != null)){
+			
+				SimpleDateFormat dt = new SimpleDateFormat("dd MMM"); 
+				System.out.println("Name: " + nm + "  " + "Death: " + dt.format(ddt));
+				//System.out.println("-------------------------------------------------------");
+			
+		}
+	}
+
+}
 	
 	private static <list> void ListAnniversary(List<Family> Families){
 		SimpleDateFormat dt = new SimpleDateFormat("dd MMM"); 

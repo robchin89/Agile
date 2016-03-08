@@ -1,7 +1,11 @@
 package myNewProject;
 
 import java.util.Date;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTime;
+import org.joda.time.Years;
 
 public class Person implements Comparable {
 
@@ -53,6 +57,35 @@ public class Person implements Comparable {
 		}
 	}
 	
+	//check less than 150
+	
+	public void checkLessThan150()
+	{
+		DateTime jodadeath = new DateTime(death);
+		DateTime jodabirth = new DateTime(birthday);
+		DateTime today = new DateTime();
+		
+		if(death !=null)
+		{
+			if(Years.yearsBetween(jodabirth, jodadeath).getYears() > 150 )
+			{
+			//System.out.println(name + " greater than 150 years old!"+today+" Age: " + jodadeath + " - " + jodabirth + " = " +  (Years.yearsBetween(jodabirth, jodadeath).getYears()));
+			System.out.println(name + " greater than 150 years old! Age: " + Years.yearsBetween(jodabirth, jodadeath).getYears());
+			};
+		}
+		else
+		{	
+			if ((Years.yearsBetween(jodabirth, today)).getYears() > 150)
+			{
+			//System.out.println(name + " greater than 150 years old! Age: " + today + " - " + jodabirth + " = " + ((Years.yearsBetween(jodabirth, today).getYears())));	
+			System.out.println(name + " greater than 150 years old! Age: " + Years.yearsBetween(jodabirth, today).getYears());
+			};	
+		}
+				
+			
+	}
+	
+
 	public String getLastName(){
 		String[] names = name.split(" ");
 		return names[names.length-1].substring(1, names[names.length-1].length()-1);
