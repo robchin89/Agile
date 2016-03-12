@@ -185,7 +185,7 @@ public class ReadGED {
 
 			for(int i = 0; i < Individuals.size();i++){
 				Person individual = Individuals.get(i);
-				System.out.println("\n" + individual);
+				System.out.println("\n" + individual + " Age: " + individual.getAge());
 				
 				// Birth Before Death
 				individual.checkBirthBeforeDeath();
@@ -260,6 +260,10 @@ public class ReadGED {
 					System.out.println("All the males in family " + Families.get(i).uniqueId + " do not have the same last name.");
 				}
 				//CHECK SURNAME END
+				
+				//ORDER SIBLINGS BY AGE START
+				Families.get(i).printChildrenByAge();
+				//ORDER SIBLINGS BY AGE END
 			}
 			
 			//sprint 1 US38 - list of up coming Birthday

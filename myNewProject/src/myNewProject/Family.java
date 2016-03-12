@@ -1,5 +1,6 @@
 package myNewProject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -116,4 +117,22 @@ public class Family implements Comparable{
 			}				
 		}
 	}
+	
+	public void printChildrenByAge(){
+		System.out.println("\nChildren by age:");
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		for(int i = 0; i < children.size(); i++){
+			int oldest = -1;
+			int oldestIndex = -1;
+			for(int j = 0; j < children.size(); j++){
+				if(!indexes.contains(j) && children.get(j).getAge() > oldest){
+					oldest = children.get(j).getAge();
+					oldestIndex = j;
+				}
+			}
+			indexes.add(oldestIndex);
+			System.out.println(children.get(oldestIndex) + " Age: " +children.get(oldestIndex).getAge());
+		}
+	}
+	
 }

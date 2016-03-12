@@ -91,6 +91,13 @@ public class Person implements Comparable {
 		return names[names.length-1].substring(1, names[names.length-1].length()-1);
 	}
 	
+	public int getAge(){
+		Date currentDate = new Date();
+		long time = currentDate.getTime() - birthday.getTime();
+		//31557600000 milliseconds in a year, assume 365.25 is a year to include leap years
+		return (int)Math.floor(time/3.15576e+10);
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		return this.uniqueId.compareTo(((Person)o).uniqueId);
