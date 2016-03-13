@@ -14,6 +14,8 @@ public class Family implements Comparable{
 	
 	public List<Person> children;
 	
+	public Date divorce;
+	
 	public String toString(){
 		return "Family ID: "+uniqueId+" Husband: "+husband.name+" Wife: "+wife.name;
 	}
@@ -23,6 +25,17 @@ public class Family implements Comparable{
 	public int compareTo(Object o) {
 		return this.uniqueId.compareTo(((Family)o).uniqueId);
 	}
+	
+	
+	public void checkDivorceBeforeDeath(){
+		if(divorce != null){
+			if((husband.death != null && divorce.after(husband.death)) || (wife.death != null && divorce.after(wife.death))){
+				System.out.println("Divorce occurred after death of partner");
+			} 
+		}
+	}
+	
+	
 	
 	//Check for more than 4 children having the same birth date
 	public Boolean checkMultipleBirths(){
@@ -132,6 +145,12 @@ public class Family implements Comparable{
 			}
 			indexes.add(oldestIndex);
 			System.out.println(children.get(oldestIndex) + " Age: " +children.get(oldestIndex).getAge());
+		}
+	}
+	
+	public void checkMaxSiblings(){
+		if(this.children.size() >= 15){
+			System.out.println("Too many siblings: " + this.children.size());
 		}
 	}
 	

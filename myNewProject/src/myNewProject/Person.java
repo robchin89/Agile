@@ -48,7 +48,6 @@ public class Person implements Comparable {
 		}
 	}
 	
-
 	
 	//check birth before marriage
 	public void checkBirthBeforeMarriage(){

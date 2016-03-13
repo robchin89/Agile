@@ -164,6 +164,7 @@ public class ReadGED {
 						Date divorce = parseDate(value);
 						family.wife.divorce = divorce;
 						family.husband.divorce = divorce;
+						family.divorce = divorce;
 					}
 				}
 
@@ -267,6 +268,13 @@ public class ReadGED {
 				//ORDER SIBLINGS BY AGE START
 				Families.get(i).printChildrenByAge();
 				//ORDER SIBLINGS BY AGE END
+				
+				
+				//Sprint 2 US 15 - No more than 15 siblings
+				Families.get(i).checkMaxSiblings();
+				
+				//Sprint 2 US 06 - No divorce after death
+				Families.get(i).checkDivorceBeforeDeath();
 			}
 			
 			//sprint 1 US38 - list of up coming Birthday
