@@ -33,6 +33,9 @@ public class ReadGED {
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamy.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/TestBigamyDeath.ged");
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/Family-3-22-Feb-2016.ged"); //testing bigamy
+			
+			//URL url = new URL("https://raw.githubusercontent.com/robchin89/test/master/gedFile2"); //testing 150 years old
+			
 			//Scanner fileReader = new Scanner(url.openStream());
 			
 
