@@ -154,4 +154,12 @@ public class Family implements Comparable{
 		}
 	}
 	
+	//US12 - Check that the parents should not be too told. 
+		public  Boolean checkParentsAge(){
+			
+			
+			return false;
+		}
+		
+		
 }

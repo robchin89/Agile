@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import org.joda.time.DateTime;
+import org.joda.time.Years;
+
 public class ReadGED {
 
 	private static Date parseDate(String date){
@@ -269,7 +272,7 @@ public class ReadGED {
 				Families.get(i).printChildrenByAge();
 				//ORDER SIBLINGS BY AGE END
 				
-				
+			
 				//Sprint 2 US 15 - No more than 15 siblings
 				Families.get(i).checkMaxSiblings();
 				
@@ -287,17 +290,26 @@ public class ReadGED {
 			System.out.println("US39 - Marriage Anniversary List(next 30 days):");
 			System.out.println("---------------------------------");
 			ListAnniversary(Families);
-			
+		
 			//sprint 2 US37 - list of recent survivors
 			System.out.println("\n");
 			System.out.println("US37 - List of Survivors(last 30 days)");
 			System.out.println("---------------------------------");
 			Family.ListSurvivors(Families, Individuals);
 			
+			//List of surviving couples
 			System.out.println("\n");
 			System.out.println("US30 - List of married couples alive");
 			System.out.println("---------------------------------");
 			Family.ListSurvingCouples(Families, Individuals);
+			
+			//Sprint 3
+			//List of parents not too old.
+			System.out.println("\n");
+			System.out.println("US12 - List of parents not too old");
+			System.out.println("---------------------------------");
+			ListParentNotOld(Families);
+			
 			
 			
 			//sprint 2 US29 - list deceased
@@ -314,6 +326,38 @@ public class ReadGED {
 			ex.printStackTrace(); // for now, simply output it.
 		}
     } 
+	private static<list> void ListParentNotOld(List<Family> Families){
+		
+		for(int i = 0; i < Families.size();i++){
+			if(Families.get(i).children != null){
+				if((Families.get(i).children.size() > 1)){
+					for(int y = 0; y < (Families.get(y).children.size()); y++){
+						Date ithBirthday = (Families.get(y).children.get(y).birthday);
+						DateTime MaxBirthday = new DateTime(ithBirthday);
+						DateTime HusbandBirthday = new DateTime(Families.get(i).husband.birthday);
+						DateTime WifeBirthday = new DateTime(Families.get(i).husband.birthday);
+						String HusbandName = Families.get(i).husband.name;
+						String WifeName = Families.get(i).wife.name;
+						String cName = Families.get(y).children.get(y).name;
+						PrintParents2Old(HusbandName,WifeName,cName,MaxBirthday, HusbandBirthday,WifeBirthday);
+					}
+				}
+			}
+		}
+	}
+	
+	private static void PrintParents2Old(String hName, String wName, String cName, DateTime mxdate, DateTime hDate, DateTime wDate){
+		if(Years.yearsBetween(hDate,mxdate).getYears() > 80 ){
+			System.out.println("Difference between child "
+					+ "" +cName + " and " +hName +
+					" is "+  Years.yearsBetween(mxdate, hDate).getYears() + "  : Father is too old");
+		}
+		if(Years.yearsBetween(hDate,mxdate).getYears() > 60 ){
+			System.out.println("Difference between child "
+					+ "" +cName + " and " +wName +
+					" is "+  Years.yearsBetween(mxdate, wDate).getYears() + "  : Wife is too old");
+		}
+	}
 
 	private static <list> void ListBirthday(List<Person> individuals){
 			for(int i = 0; i < individuals.size();i++){
