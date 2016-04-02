@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.Years;
+
 public class Family implements Comparable{
 
 	public String uniqueId;
@@ -145,6 +148,30 @@ public class Family implements Comparable{
 			}
 			indexes.add(oldestIndex);
 			System.out.println(children.get(oldestIndex) + " Age: " +children.get(oldestIndex).getAge());
+			
+			//Sprint 3 - check if children birthday is before parent's marriage date
+			
+			if(husband.marriage != null){
+				if(children.get(oldestIndex).birthday.before(husband.marriage)){
+					System.out.println("-Child was born before parents were married");
+				}
+			}
+			
+			//end
+			
+			//Sprint 3 - check if child's bday is before any parent death
+			if(husband.death != null){ 
+				if(children.get(oldestIndex).birthday.after(husband.death)){		
+				System.out.println("-Child born after death of father");
+				}			
+			}	
+			if(wife.death != null){ 
+				if(children.get(oldestIndex).birthday.after(wife.death)){	
+				System.out.println("-Child born after death of mother");
+				}			
+			}
+			//end
+			
 		}
 	}
 	
