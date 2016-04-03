@@ -412,7 +412,7 @@ private static<list> void ListSiblingSpace(List<Family> Families){
 					+ "" +cName + " and " +hName +
 					" is "+  Years.yearsBetween(mxdate, hDate).getYears() + "  : Father is too old");
 		}
-		if(Years.yearsBetween(hDate,mxdate).getYears() > 60 ){
+		if(Years.yearsBetween(wDate,mxdate).getYears() > 60 ){
 			System.out.println("Difference between child "
 					+ "" +cName + " and " +wName +
 					" is "+  Years.yearsBetween(mxdate, wDate).getYears() + "  : Wife is too old");
