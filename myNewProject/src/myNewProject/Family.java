@@ -19,8 +19,10 @@ public class Family implements Comparable{
 	
 	public Date divorce;
 	
+	public Date marriage;
+	
 	public String toString(){
-		return "Family ID: "+uniqueId+" Husband: "+husband.name+" Wife: "+wife.name;
+		return "Family ID: "+ uniqueId +" Husband: "+husband.name+" Wife: "+wife.name;
 	}
 	
 
@@ -188,5 +190,18 @@ public class Family implements Comparable{
 			return false;
 		}
 		
+	public void checkLargeAgeDifference(){
+		DateTime jodaMarriage = new DateTime(marriage);
+		int husbandAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(husband.birthday)).getYears();
+		int wifeAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(wife.birthday)).getYears();
 		
+		if((husbandAgeAtMarriage *2) > wifeAgeAtMarriage){
+			System.out.println(husband.name + " was more than twice as old as " + wife.name + " during marriage");
+		}
+		
+		if((wifeAgeAtMarriage * 2) > husbandAgeAtMarriage){
+			System.out.println(wife.name + " was more than twice as old as " + husband.name + " during marriage ");
+		}
+		
+	}
 }

@@ -84,7 +84,8 @@ public class Person implements Comparable {
 			
 	}
 	
-
+	
+	
 	public String getLastName(){
 		String[] names = name.split(" ");
 		return names[names.length-1].substring(1, names[names.length-1].length()-1);
@@ -101,4 +102,14 @@ public class Person implements Comparable {
 	public int compareTo(Object o) {
 		return this.uniqueId.compareTo(((Person)o).uniqueId);
 	}
+	
+	public void checkLivingSingle(){
+		DateTime jodabirth = new DateTime(birthday);
+		DateTime now = new DateTime();
+		Years age = Years.yearsBetween(jodabirth, now);
+		if(age.getYears() > 30 && marriage == null && divorce == null){
+			System.out.println(name + " is living single");
+		}
+	}
+	
 }
