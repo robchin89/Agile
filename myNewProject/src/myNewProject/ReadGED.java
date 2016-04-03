@@ -394,7 +394,7 @@ private static<list> void ListSiblingSpace(List<Family> Families){
 						Date ithBirthday = (Families.get(i).children.get(y).birthday);
 						DateTime MaxBirthday = new DateTime(ithBirthday);
 						DateTime HusbandBirthday = new DateTime(Families.get(i).husband.birthday);
-						DateTime WifeBirthday = new DateTime(Families.get(i).husband.birthday);
+						DateTime WifeBirthday = new DateTime(Families.get(i).wife.birthday);
 						String HusbandName = Families.get(i).husband.name;
 						String WifeName = Families.get(i).wife.name;
 						String cName = Families.get(i).children.get(y).name;
