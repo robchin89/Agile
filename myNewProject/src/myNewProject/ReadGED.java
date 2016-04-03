@@ -214,6 +214,7 @@ public class ReadGED {
 			}
 			
 			//Check Unique Name and Birthdate Start
+			System.out.println("\nChecking Duplicate Individuals:");
 			checkSameNameBirthdate(Individuals);
 			//Check Unique Name and Birthdate End
 			

@@ -204,9 +204,10 @@ public class Family implements Comparable{
 
 	public void checkLargeAgeDifference(){
 		DateTime jodaMarriage = new DateTime(marriage);
-		int husbandAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(husband.birthday)).getYears();
-		int wifeAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(wife.birthday)).getYears();
-		
+		int husbandAgeAtMarriage = Years.yearsBetween(new DateTime(husband.birthday), jodaMarriage).getYears();
+		System.out.println("Husband age at marriage: "+husbandAgeAtMarriage);
+		int wifeAgeAtMarriage = Years.yearsBetween(new DateTime(wife.birthday), jodaMarriage).getYears();
+		System.out.println("Wife age at marriage: "+wifeAgeAtMarriage);
 		/*if((husbandAgeAtMarriage *2) > wifeAgeAtMarriage){
 			System.out.println(husband.name + " was more than twice as old as " + wife.name + " during marriage");
 		}
