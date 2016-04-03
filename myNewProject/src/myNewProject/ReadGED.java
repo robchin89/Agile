@@ -155,6 +155,7 @@ public class ReadGED {
 						Date marriage = parseDate(value);
 						family.wife.marriage = marriage;
 						family.husband.marriage = marriage;
+						family.marriage = marriage;
 					}
 				}
 
@@ -203,8 +204,11 @@ public class ReadGED {
 				// Birth before Marriage
 				individual.checkBirthBeforeMarriage(); 
 				
-				//Check less than 150 years old
+				// Check less than 150 years old
 				individual.checkLessThan150();
+				
+				// Check if living single (Over 30 and never married)
+				individual.checkLivingSingle();
 			}
 			
 			//Check Unique Name and Birthdate Start
@@ -285,6 +289,9 @@ public class ReadGED {
 				//Check Unique Children Names Start
 				Families.get(i).uniqueChildrenNames();
 				//Check Unique Children Names End
+				
+				// Sprint 3 US 34 - Large Age Differences
+				Families.get(i).checkLargeAgeDifference();
 			}
 			
 			//sprint 1 US38 - list of up coming Birthday
