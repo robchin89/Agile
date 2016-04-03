@@ -384,14 +384,6 @@ private static<list> void ListSiblingSpace(List<Family> Families){
 		}
 	
 
-public static double smallestElement(double[] alist){
-	double min = alist[0];
-	for (int x=0; x < alist.length; x++){
-		if (alist[x] < min) min= alist[x];
-	}
-	return min;
-}
-
 
 	private static<list> void ListParentNotOld(List<Family> Families){
 		
