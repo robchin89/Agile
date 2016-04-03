@@ -207,13 +207,24 @@ public class Family implements Comparable{
 		int husbandAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(husband.birthday)).getYears();
 		int wifeAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(wife.birthday)).getYears();
 		
-		if((husbandAgeAtMarriage *2) > wifeAgeAtMarriage){
+		/*if((husbandAgeAtMarriage *2) > wifeAgeAtMarriage){
 			System.out.println(husband.name + " was more than twice as old as " + wife.name + " during marriage");
 		}
 		
 		if((wifeAgeAtMarriage * 2) > husbandAgeAtMarriage){
 			System.out.println(wife.name + " was more than twice as old as " + husband.name + " during marriage ");
+		}*/
+		
+		if((husbandAgeAtMarriage) > wifeAgeAtMarriage*2){
+			System.out.println(husband.name + " was more than twice as old as " + wife.name + " during marriage");
 		}
+		
+		if((wifeAgeAtMarriage) > husbandAgeAtMarriage*2){
+			System.out.println(wife.name + " was more than twice as old as " + husband.name + " during marriage ");
+		}
+		
+	
+		
 		
 	}
 }
