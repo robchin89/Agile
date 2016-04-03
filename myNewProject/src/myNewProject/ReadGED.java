@@ -14,6 +14,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
 import org.joda.time.Years;
 
 public class ReadGED {
@@ -317,7 +319,12 @@ public class ReadGED {
 			System.out.println("---------------------------------");
 			ListParentNotOld(Families);
 			
-					
+			//List of sibling spaceing.
+			System.out.println("\n");
+			System.out.println("US13 - List of sibling space");
+			System.out.println("---------------------------------");
+			ListSiblingSpace(Families);
+			
 			//sprint 2 US29 - list deceased
 			System.out.println("\n");
 			System.out.println("US29 - Deceased List:");
@@ -332,25 +339,73 @@ public class ReadGED {
 			ex.printStackTrace(); // for now, simply output it.
 		}
     } 
+	
+double idiff = 0;
+static DateTime MaxBirthday;
+static String ChildName;
+private static<list> void ListSiblingSpace(List<Family> Families){
+		
+		for(int i = 0; i < Families.size();i++){
+			if(Families.get(i).children != null){
+				if((Families.get(i).children.size() > 1)){
+					for(int y = 0; y < (Families.get(i).children.size()); y++){
+						String sName = (Families.get(i).children.get(y).name);
+						DateTime ithBirthday = new DateTime((Families.get(i).children.get(y).birthday));
+						if(!((MaxBirthday)==null)){
+							
+							if(Months.monthsBetween(MaxBirthday, ithBirthday).getMonths() < 8 &&
+									Months.monthsBetween(MaxBirthday, ithBirthday).getMonths() > -8)
+							{
+								System.out.println( "Difference between birthdate of sibling " + " " + sName +" and " + ChildName + " is " 
+										+ Months.monthsBetween(MaxBirthday, ithBirthday).getMonths() + " --- " + MaxBirthday + "--- " + ithBirthday + " " + "These Birthdates are not valid as spacing is incorrect");
+							}
+						
+							if(Days.daysBetween(MaxBirthday, ithBirthday).getDays() < 2 &&
+									Days.daysBetween(MaxBirthday, ithBirthday).getDays() > -2)
+							{
+								System.out.println( "Difference between Birthday of sibling " + " " + sName +" and " + ChildName + " is " 
+										+ Days.daysBetween(MaxBirthday, ithBirthday).getDays() + " --- " + MaxBirthday + "--- " + ithBirthday + " " + "Birthday needs to be atleast 2 days apart.");
+							}
+						}
+						MaxBirthday = new DateTime(ithBirthday);
+						ChildName = sName;
+						}
+					
+					}
+				}
+			}
+		}
+	
+
+public static double smallestElement(double[] alist){
+	double min = alist[0];
+	for (int x=0; x < alist.length; x++){
+		if (alist[x] < min) min= alist[x];
+	}
+	return min;
+}
+
+
 	private static<list> void ListParentNotOld(List<Family> Families){
 		
 		for(int i = 0; i < Families.size();i++){
 			if(Families.get(i).children != null){
 				if((Families.get(i).children.size() > 1)){
-					for(int y = 0; y < (Families.get(y).children.size()); y++){
-						Date ithBirthday = (Families.get(y).children.get(y).birthday);
+					for(int y = 0; y < (Families.get(i).children.size()); y++){
+						Date ithBirthday = (Families.get(i).children.get(y).birthday);
 						DateTime MaxBirthday = new DateTime(ithBirthday);
 						DateTime HusbandBirthday = new DateTime(Families.get(i).husband.birthday);
 						DateTime WifeBirthday = new DateTime(Families.get(i).husband.birthday);
 						String HusbandName = Families.get(i).husband.name;
 						String WifeName = Families.get(i).wife.name;
-						String cName = Families.get(y).children.get(y).name;
+						String cName = Families.get(i).children.get(y).name;
 						PrintParents2Old(HusbandName,WifeName,cName,MaxBirthday, HusbandBirthday,WifeBirthday);
 					}
 				}
 			}
 		}
 	}
+	
 	
 	private static void PrintParents2Old(String hName, String wName, String cName, DateTime mxdate, DateTime hDate, DateTime wDate){
 		if(Years.yearsBetween(hDate,mxdate).getYears() > 80 ){
