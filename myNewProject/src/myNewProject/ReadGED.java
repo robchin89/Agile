@@ -310,8 +310,7 @@ public class ReadGED {
 			System.out.println("---------------------------------");
 			ListParentNotOld(Families);
 			
-			
-			
+					
 			//sprint 2 US29 - list deceased
 			System.out.println("\n");
 			System.out.println("US29 - Deceased List:");
