@@ -98,6 +98,13 @@ public class Person implements Comparable {
 		return (int)Math.floor(time/3.15576e+10);
 	}
 	
+	public boolean sameNameBirthdate(Person person){
+		if(name.equals(person.name)&&birthday.equals(person.birthday)){
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		return this.uniqueId.compareTo(((Person)o).uniqueId);

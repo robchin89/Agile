@@ -212,7 +212,11 @@ public class ReadGED {
 				// Check if living single (Over 30 and never married)
 				individual.checkLivingSingle();
 			}
-
+			
+			//Check Unique Name and Birthdate Start
+			checkSameNameBirthdate(Individuals);
+			//Check Unique Name and Birthdate End
+			
 			System.out.println("\nFamilies:");
 			//Families.sort(null);
 
@@ -277,13 +281,16 @@ public class ReadGED {
 				//ORDER SIBLINGS BY AGE START
 				Families.get(i).printChildrenByAge();
 				//ORDER SIBLINGS BY AGE END
-				
 			
 				//Sprint 2 US 15 - No more than 15 siblings
 				Families.get(i).checkMaxSiblings();
 				
 				//Sprint 2 US 06 - No divorce after death
 				Families.get(i).checkDivorceBeforeDeath();
+				
+				//Check Unique Children Names Start
+				Families.get(i).uniqueChildrenNames();
+				//Check Unique Children Names End
 				
 				// Sprint 3 US 34 - Large Age Differences
 				Families.get(i).checkLargeAgeDifference();
@@ -512,5 +519,18 @@ public static double smallestElement(double[] alist){
 			return true;
 		}
 		return false;
+	}
+	
+	public static void checkSameNameBirthdate(List<Person> individuals){
+		for(int i = 0; i < individuals.size(); i++){
+			for( int j = 0; j < individuals.size(); j++){
+				if( i != j){
+					if(individuals.get(i).sameNameBirthdate(individuals.get(j))){
+						System.out.println("Duplicate person: "+individuals.get(i).name+" ("+individuals.get(i).uniqueId+") and "+individuals.get(j).name+" ("+individuals.get(j).uniqueId+") have the same name and birthday.");
+					}
+				}
+			}
+		}
+		
 	}
 }

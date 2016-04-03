@@ -190,6 +190,18 @@ public class Family implements Comparable{
 			return false;
 		}
 		
+		public void uniqueChildrenNames(){
+			for(int i = 0; i < children.size(); i++){
+				for(int j = 0; j < children.size(); j++){
+					if(i != j){
+						if(children.get(i).name.equals(children.get(j).name)&& children.get(i).birthday.equals(children.get(j).birthday)){
+							System.out.println("Duplicate Child: "+children.get(i).name+" and "+children.get(j).name + " in family "+uniqueId+" have the same name and birthday.");
+						}
+					}
+				}
+			}
+		}
+
 	public void checkLargeAgeDifference(){
 		DateTime jodaMarriage = new DateTime(marriage);
 		int husbandAgeAtMarriage = Years.yearsBetween(jodaMarriage, new DateTime(husband.birthday)).getYears();
