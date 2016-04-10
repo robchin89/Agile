@@ -135,6 +135,9 @@ public class Family implements Comparable{
 			}				
 		}
 	}
+		
+		
+	
 	
 	public void printChildrenByAge(){
 		System.out.println("\nChildren by age:");

@@ -339,6 +339,20 @@ public class ReadGED {
 			System.out.println("-----------------------------");
 			ListDeceased(Individuals);
 			
+			
+			//sprint 4 US10 - list family/marriage dates and marriage must be after 14 years old
+			System.out.println("\n");
+			System.out.println("US10 - Married After 14:");
+			System.out.println("-----------------------------");
+			ListMarriedafter14(Families);
+			
+			
+			//sprint 4 US01 - list birth, marriage, divorce, death dates before current date
+			System.out.println("\n");
+			System.out.println("US01 - Dates After Current Date:");
+			System.out.println("-----------------------------");
+			ListDatesAfterCurrentDate(Individuals, Families);
+			
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -351,6 +365,65 @@ public class ReadGED {
 double idiff = 0;
 static DateTime MaxBirthday;
 static String ChildName;
+
+//US10-Marriage after 14 for each
+public static <list> void ListMarriedafter14(List<Family> Families){
+	for (int i = 0; i < Families.size();i++){
+		DateTime husbandbirthday = new DateTime(Families.get(i).husband.birthday);
+		DateTime wifebirthday = new DateTime(Families.get(i).wife.birthday);
+		DateTime marriagedate = new DateTime(Families.get(i).marriage);
+		
+		System.out.println("Husband: " + Families.get(i).husband.name + " Birthday: " + husbandbirthday + " " + "Wife: " + Families.get(i).wife.name + " Birthday: " + wifebirthday);
+		
+			if ( Years.yearsBetween(husbandbirthday, marriagedate).getYears() <= 14){
+			System.out.println("Husband was not at least 14 when married: " /*+ Years.yearsBetween(husbandbirthday, marriagedate).getYears()*/);
+			}
+			else
+			{
+			if ( Years.yearsBetween(wifebirthday, marriagedate).getYears() <= 14){
+				System.out.println("Wife was not at least 14 when married " /*+ Years.yearsBetween(wifebirthday, marriagedate).getYears()*/);
+			};
+			}
+		}
+}
+
+//US01 - dates after current date
+public static <list> void ListDatesAfterCurrentDate(List<Person> individuals, List<Family> Families){	
+	for(int i = 0; i < individuals.size();i++){
+		
+		DateTime birthday = new DateTime(individuals.get(i).birthday);
+		DateTime deathday = new DateTime(individuals.get(i).death);
+		DateTime divorceday = new DateTime(individuals.get(i).divorce);
+		DateTime marriageday = new DateTime(individuals.get(i).marriage);
+		DateTime today = new DateTime();
+		
+		
+		if (birthday.isAfter(today) || deathday.isAfter(today) || divorceday.isAfter(today)|| marriageday.isAfter(today))
+		{
+			System.out.println("Name: " + individuals.get(i).name);
+		}
+
+		
+		if (birthday.isAfter(today))
+		{
+			System.out.println("Birthday: " + birthday + " is after today " + today);
+		}
+		if (deathday.isAfter(today))
+		{
+			System.out.println("Death Date: " + deathday + "is after today " + today);
+		}
+		if (divorceday.isAfter(today))
+		{
+			System.out.println("Divorce Date: " + divorceday + " is after today " + today);
+		}
+		if (marriageday.isAfter(today))
+		{
+		 System.out.println ("Marriage Date " + marriageday + " is after today " + today);
+		}
+	}
+
+}
+		
 private static<list> void ListSiblingSpace(List<Family> Families){
 		
 		for(int i = 0; i < Families.size();i++){
