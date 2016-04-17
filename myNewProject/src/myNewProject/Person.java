@@ -115,11 +115,13 @@ public class Person implements Comparable {
 	}
 	
 	public void checkLivingSingle(){
+		if(birthday != null && marriage == null && divorce == null){
 		DateTime jodabirth = new DateTime(birthday);
 		DateTime now = new DateTime();
 		Years age = Years.yearsBetween(jodabirth, now);
-		if(age.getYears() > 30 && marriage == null && divorce == null){
-			System.out.println(name + " is living single");
+			if(age.getYears() > 30 ){
+				System.out.println(name + " is living single");
+			}
 		}
 	}
 	
