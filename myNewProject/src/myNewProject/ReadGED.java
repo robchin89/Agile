@@ -636,11 +636,13 @@ private static<list> void ListSiblingSpace(List<Family> Families){
 			Date ddt = individuals.get(i).death;
 			String nm = individuals.get(i).name;
 			if ((ddt == null)){
+				if(!(bdt==null)){
 				if(daycompare(bdt)){
 					SimpleDateFormat dt = new SimpleDateFormat("dd MMM"); 
 					System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
 					System.out.println("-------------------------------------------------------");
-				};
+				}
+				}
 			}
 		}
 
