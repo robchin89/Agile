@@ -55,8 +55,10 @@ public class Family implements Comparable{
 					Date ithBirthday = children.get(i).birthday;
 					//Check rest of the birthdays against ith child
 					for(int j = 0; j < children.size(); j++){
-						if(children.get(j).birthday.equals(ithBirthday)){
-							matchingBirthdays++;
+						if(children.get(j).birthday != null && ithBirthday != null){
+							if(children.get(j).birthday.equals(ithBirthday)){
+								matchingBirthdays++;
+							}
 						}
 					}
 					//System.out.println("Matching Birthdays: "+matchingBirthdays);
@@ -142,41 +144,48 @@ public class Family implements Comparable{
 	public void printChildrenByAge(){
 		System.out.println("\nChildren by age:");
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		ArrayList<Integer> nullBirthdays = new ArrayList<Integer>();
 		for(int i = 0; i < children.size(); i++){
 			int oldest = -1;
 			int oldestIndex = -1;
-			for(int j = 0; j < children.size(); j++){
-				if(!indexes.contains(j) && children.get(j).getAge() > oldest){
-					oldest = children.get(j).getAge();
-					oldestIndex = j;
+			if(children.get(i).birthday != null){
+				for(int j = 0; j < children.size(); j++){
+					if(!indexes.contains(j) && children.get(j).getAge() > oldest){
+						oldest = children.get(j).getAge();
+						oldestIndex = j;
+					}
 				}
-			}
-			indexes.add(oldestIndex);
-			System.out.println(children.get(oldestIndex) + " Age: " +children.get(oldestIndex).getAge());
+				indexes.add(oldestIndex);
+				System.out.println(children.get(oldestIndex) + " Age: " +children.get(oldestIndex).getAge());
 			
-			//Sprint 3 - check if children birthday is before parent's marriage date
+				//Sprint 3 - check if children birthday is before parent's marriage date
 			
-			if(husband.marriage != null){
-				if(children.get(oldestIndex).birthday.before(husband.marriage)){
-					System.out.println("-Child was born before parents were married");
+				if(husband.marriage != null){
+					if(children.get(oldestIndex).birthday.before(husband.marriage)){
+						System.out.println("-Child was born before parents were married");
+					}
 				}
+			
+				//end
+			
+				//Sprint 3 - check if child's bday is before any parent death
+				if(husband.death != null){ 
+					if(children.get(oldestIndex).birthday.after(husband.death)){		
+						System.out.println("-Child born after death of father");
+					}			
+				}	
+				if(wife.death != null){ 
+					if(children.get(oldestIndex).birthday.after(wife.death)){	
+						System.out.println("-Child born after death of mother");
+					}			
+				}
+				//end
+			}else{
+				nullBirthdays.add(i);
 			}
-			
-			//end
-			
-			//Sprint 3 - check if child's bday is before any parent death
-			if(husband.death != null){ 
-				if(children.get(oldestIndex).birthday.after(husband.death)){		
-				System.out.println("-Child born after death of father");
-				}			
-			}	
-			if(wife.death != null){ 
-				if(children.get(oldestIndex).birthday.after(wife.death)){	
-				System.out.println("-Child born after death of mother");
-				}			
-			}
-			//end
-			
+		}
+		for(int i = 0; i < nullBirthdays.size(); i++){
+			System.out.println(children.get(nullBirthdays.get(i)) + " has no birthdate, cannot determine age.");
 		}
 	}
 	
