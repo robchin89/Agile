@@ -497,30 +497,37 @@ private static<list> void ListOrphans(List<Family> Families){
 	}
 }
 private static <list> void ListRecentBirth(List<Person> individuals){
-Calendar importantDates = Calendar.getInstance();
-Calendar today = Calendar.getInstance();
-Calendar last30day = Calendar.getInstance();
-last30day.set(Calendar.HOUR, 0);
-last30day.set(Calendar.MINUTE, 0);
-last30day.set(Calendar.SECOND, 0);
-last30day.set(Calendar.HOUR_OF_DAY, 0);
-last30day.set(Calendar.MILLISECOND, 0);
-last30day.add(Calendar.DATE, 30);
-for(int i = 0; i < individuals.size();i++){
-	Date bdt = individuals.get(i).birthday;
-	String nm = individuals.get(i).name;
-	//today.add(Calendar.DATE,  -1);
-		if(importantDates.after(last30day)){
-		System.out.println(nm + " " + bdt);
-	}
+	Calendar importantDates = Calendar.getInstance();
+	Date currentDate = new Date();
+	//Calendar today = Calendar.getInstance();
+	//Calendar last30day = Calendar.getInstance();
+	//last30day.set(Calendar.HOUR, 0);
+	//last30day.set(Calendar.MINUTE, 0);
+	//last30day.set(Calendar.SECOND, 0);
+	//last30day.set(Calendar.HOUR_OF_DAY, 0);
+	//last30day.set(Calendar.MILLISECOND, 0);
+	//last30day.add(Calendar.DATE, 30);
+	for(int i = 0; i < individuals.size();i++){
+		if(individuals.get(i).birthday != null){
+			Date bdt = individuals.get(i).birthday;
+			//Get age in milliseconds, there are 2,592,000,000 milliseconds in 30 days
+			// 2592000000 = 2.592e9
+			long time = currentDate.getTime() - bdt.getTime();
+			String nm = individuals.get(i).name;
+			//today.add(Calendar.DATE,  -1);
+			//if(importantDates.after(last30day)){
+			if(time > 0 && time < 3.15576e+9){
+				System.out.println(nm + " " + bdt);
+			}
 
-//System.out.println(nm + " " + bdt);
-	/*if(daycompare(bdt)){
-		SimpleDateFormat dt = new SimpleDateFormat("dd MMM yyyy"); 
-		System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
-		System.out.println("-------------------------------------------------------");
-	};*/
-}
+				//System.out.println(nm + " " + bdt);
+				/*if(daycompare(bdt)){
+					SimpleDateFormat dt = new SimpleDateFormat("dd MMM yyyy"); 
+					System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
+					System.out.println("-------------------------------------------------------");
+				};*/
+		}
+	}
 }
 
 
