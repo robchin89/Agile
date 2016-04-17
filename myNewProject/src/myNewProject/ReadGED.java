@@ -297,8 +297,8 @@ public class ReadGED {
 						if(Individuals.get(i).sameUniqueId(Individuals.get(j))){
 							System.out.println("Error: Individual IDs must be unique, no two individuals can have the same Individual ID.");
 							System.out.println("The following individuals have the same Individual ID:");
-							System.out.println(Families.get(i));
-							System.out.println(Families.get(j));
+							System.out.println(Individuals.get(i));
+							System.out.println(Individuals.get(j));
 						}
 					}
 				}
