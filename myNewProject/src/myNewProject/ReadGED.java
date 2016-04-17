@@ -432,6 +432,19 @@ public class ReadGED {
 			System.out.println("-----------------------------");
 			ListDatesAfterCurrentDate(Individuals, Families);
 			
+			//Sprint 4
+			//List orphans.
+			System.out.println("\n");
+			System.out.println("US33 - List orphans");
+			System.out.println("---------------------------------");
+			ListOrphans(Families);
+			
+			//Sprint 4
+			//List orphans.
+			System.out.println("\n");
+			System.out.println("US35 - List recent births");
+			System.out.println("---------------------------------");
+			ListRecentBirth(Individuals);
 		}
 		catch(IOException ex) {
 			// there was some connection problem, or the file did not exist on the server,
@@ -440,6 +453,51 @@ public class ReadGED {
 			ex.printStackTrace(); // for now, simply output it.
 		}
     } 
+	
+	//US33
+private static<list> void ListOrphans(List<Family> Families){
+Date today = new Date();
+for(int i = 0; i < Families.size();i++){
+	if ((Families.get(i).husband.death !=null) && Families.get(i).husband.death !=null){
+		if(Families.get(i).children != null){
+			if (Families.get(i).children.get(i).getAge() < 18) {
+				System.out.println("---List of Children orphaned-----");
+				System.out.println(Families.get(i).children.get(i).name);
+			}
+			
+		}
+	}
+	
+}
+}
+private static <list> void ListRecentBirth(List<Person> individuals){
+Calendar importantDates = Calendar.getInstance();
+Calendar today = Calendar.getInstance();
+Calendar last30day = Calendar.getInstance();
+last30day.set(Calendar.HOUR, 0);
+last30day.set(Calendar.MINUTE, 0);
+last30day.set(Calendar.SECOND, 0);
+last30day.set(Calendar.HOUR_OF_DAY, 0);
+last30day.set(Calendar.MILLISECOND, 0);
+last30day.add(Calendar.DATE, 30);
+for(int i = 0; i < individuals.size();i++){
+	Date bdt = individuals.get(i).birthday;
+	String nm = individuals.get(i).name;
+	//today.add(Calendar.DATE,  -1);
+		if(importantDates.after(last30day)){
+		System.out.println(nm + " " + bdt);
+	}
+
+//System.out.println(nm + " " + bdt);
+	/*if(daycompare(bdt)){
+		SimpleDateFormat dt = new SimpleDateFormat("dd MMM yyyy"); 
+		System.out.println("Name: " + nm + "  " + "Birthdate: " + dt.format(bdt));
+		System.out.println("-------------------------------------------------------");
+	};*/
+}
+}
+
+
 	
 double idiff = 0;
 static DateTime MaxBirthday;
