@@ -2,15 +2,16 @@ package myNewProject;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.joda.time.DateTime;
@@ -20,7 +21,62 @@ import org.joda.time.Years;
 
 public class ReadGED {
 
+	private static Map<String, Integer> daysMap;
+	
 	private static Date parseDate(String date){
+		String[] tokens = date.split(" ");
+		if(tokens.length != 3){
+			System.out.println("Date requires day, month, and year");
+			return null;
+		}
+		
+		Integer days;
+		String month = tokens[1];
+		Integer year;
+		try {
+			days = Integer.parseInt(tokens[0]);
+		} catch(NumberFormatException e){
+			System.out.println("Days are presented as a valid integer");
+			return null;
+		}
+		
+		try {
+			year = Integer.parseInt(tokens[2]);
+		} catch(NumberFormatException e){
+			System.out.println("Year is not presented as a valid Integer");
+			return null;
+		}
+		
+		if(days < 1){
+			System.out.println("Day cannot be 0 or negative");
+			return null;
+		}
+		
+		if(year < 1){
+			System.out.println("Year cannot be 0 or negative");
+			return null;
+		}
+		
+		if((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))){
+			daysMap.put("FEB", 29);
+		} else {
+			daysMap.put("FEB", 28);
+		}
+		
+		Integer maxDays;
+		try{
+			maxDays = daysMap.get(month);
+		} catch(Exception e){
+			System.out.println("Month is invalid!");
+			return null;
+		}
+		
+		if(days > daysMap.get(month)){
+			System.out.println("Month: " + month + " should have up to " + maxDays + " days");
+			return null;
+		}
+		
+		
 		try{
 			DateFormat df = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 			return df.parse(date);
@@ -31,6 +87,19 @@ public class ReadGED {
 	}
 
 	public static void main(String[] args) {
+		daysMap = new HashMap<String, Integer>();
+		daysMap.put("JAN", 31);
+		daysMap.put("MAR", 31);
+		daysMap.put("APR", 30);
+		daysMap.put("MAY", 31);
+		daysMap.put("JUN", 30);
+		daysMap.put("JUL", 31);
+		daysMap.put("AUG", 31);
+		daysMap.put("SEP", 30);
+		daysMap.put("OCT", 31);
+		daysMap.put("NOV", 30);
+		daysMap.put("DEC", 31);
+		
 		//test
 		try {
 			//URL url = new URL("https://raw.githubusercontent.com/robchin89/Agile/master/gedFile.ged");
@@ -195,7 +264,14 @@ public class ReadGED {
 
 			for(int i = 0; i < Individuals.size();i++){
 				Person individual = Individuals.get(i);
-				System.out.println("\n" + individual + " Age: " + individual.getAge());
+				System.out.println("\n" + individual);
+				
+				if(individual.getAge() != -1){
+					System.out.print(" Age: " + individual.getAge());
+				}
+				
+				
+				//+ " Age: " + );
 				
 				// Birth Before Death
 				individual.checkBirthBeforeDeath();
@@ -211,6 +287,9 @@ public class ReadGED {
 				
 				// Check if living single (Over 30 and never married)
 				individual.checkLivingSingle();
+				
+				// Check if individual died recently (30 Days Ago)
+				individual.checkDiedRecently();
 			}
 			
 			//Check Unique Name and Birthdate Start

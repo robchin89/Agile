@@ -92,6 +92,10 @@ public class Person implements Comparable {
 	}
 	
 	public int getAge(){
+		if(birthday == null){
+			return -1;
+		}
+		
 		Date currentDate = new Date();
 		long time = currentDate.getTime() - birthday.getTime();
 		//31557600000 milliseconds in a year, assume 365.25 is a year to include leap years
@@ -116,6 +120,16 @@ public class Person implements Comparable {
 		Years age = Years.yearsBetween(jodabirth, now);
 		if(age.getYears() > 30 && marriage == null && divorce == null){
 			System.out.println(name + " is living single");
+		}
+	}
+	
+	public void checkDiedRecently(){
+		if(death != null){
+			DateTime jodaDeath = new DateTime(death);
+			DateTime ThirtyDaysAgo = new DateTime().now().minusDays(30);
+			if(jodaDeath.isAfter(ThirtyDaysAgo)){
+				System.out.println(name + " died recently!");
+			}
 		}
 	}
 	
