@@ -290,6 +290,18 @@ public class ReadGED {
 				
 				// Check if individual died recently (30 Days Ago)
 				individual.checkDiedRecently();
+				
+				// Sprint 4 US 22 - Unique Family Ids
+				for(int j = 0; j < Individuals.size(); j++){
+					if(i!=j){
+						if(Individuals.get(i).sameUniqueId(Individuals.get(j))){
+							System.out.println("Error: Individual IDs must be unique, no two individuals can have the same Individual ID.");
+							System.out.println("The following individuals have the same Individual ID:");
+							System.out.println(Families.get(i));
+							System.out.println(Families.get(j));
+						}
+					}
+				}
 			}
 			
 			//Check Unique Name and Birthdate Start
@@ -343,6 +355,15 @@ public class ReadGED {
 							}
 						}
 					}
+					// Sprint 4 US 22 - Unique Family Ids
+					if(i != j){
+						if(Families.get(i).sameUniqueId(Families.get(j))){
+							System.out.println("Error: Family IDs must be unique, no two families can have the same Family ID.");
+							System.out.println("The following families have the same Family ID:");
+							System.out.println(Families.get(i));
+							System.out.println(Families.get(j));
+						}
+					}
 				}
 				// CHECK BIGAMY END
 				
@@ -374,6 +395,9 @@ public class ReadGED {
 				
 				// Sprint 3 US 34 - Large Age Differences
 				Families.get(i).checkLargeAgeDifference();
+				
+				// Sprint 4 US 32 - List Multiple Births
+				Families.get(i).listMultipleBirths();
 			}
 			
 			//sprint 1 US38 - list of up coming Birthday
@@ -456,19 +480,21 @@ public class ReadGED {
 	
 	//US33
 private static<list> void ListOrphans(List<Family> Families){
-Date today = new Date();
-for(int i = 0; i < Families.size();i++){
-	if ((Families.get(i).husband.death !=null) && Families.get(i).husband.death !=null){
-		if(Families.get(i).children != null){
-			if (Families.get(i).children.get(i).getAge() < 18) {
-				System.out.println("---List of Children orphaned-----");
-				System.out.println(Families.get(i).children.get(i).name);
+	Date today = new Date();
+	for(int i = 0; i < Families.size();i++){
+		if ((Families.get(i).husband.death !=null) && Families.get(i).wife.death !=null){
+			if(Families.get(i).children != null){
+				for(int j = 0; j < Families.get(i).children.size(); j++){
+					if(Families.get(i).children.get(j).birthday != null){
+						if (Families.get(i).children.get(j).getAge() < 18) {
+							System.out.println("---List of Children orphaned-----");
+							System.out.println(Families.get(i).children.get(j).name);
+						}
+					}
+				}
 			}
-			
 		}
 	}
-	
-}
 }
 private static <list> void ListRecentBirth(List<Person> individuals){
 Calendar importantDates = Calendar.getInstance();

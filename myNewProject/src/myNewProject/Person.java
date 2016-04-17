@@ -135,4 +135,11 @@ public class Person implements Comparable {
 		}
 	}
 	
+	public boolean sameUniqueId(Person person){
+		if(uniqueId.equals(person.uniqueId)){
+			return true;
+		}
+		return false;
+	}
+	
 }

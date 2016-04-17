@@ -146,7 +146,7 @@ public class Family implements Comparable{
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		ArrayList<Integer> nullBirthdays = new ArrayList<Integer>();
 		for(int i = 0; i < children.size(); i++){
-			int oldest = -1;
+			int oldest = Integer.MIN_VALUE;
 			int oldestIndex = -1;
 			if(children.get(i).birthday != null){
 				for(int j = 0; j < children.size(); j++){
@@ -231,4 +231,37 @@ public class Family implements Comparable{
 			}		
 		}
 	}
+	
+	//US 32 List Multiple Births
+	public void listMultipleBirths(){
+		ArrayList<Integer> multipleBirths = new ArrayList<Integer>();
+		ArrayList<Integer> birthIndices;
+		for(int i = 0; i < children.size(); i++){
+			birthIndices = new ArrayList<Integer>();
+			for(int j = 0; j < children.size(); j++){
+				if(i != j && children.get(i).birthday != null && children.get(j).birthday != null){
+					if(!multipleBirths.contains(j) && children.get(i).birthday.equals(children.get(j).birthday)){
+						birthIndices.add(j);
+						multipleBirths.add(j);
+					}
+				}
+			}
+			if(!birthIndices.isEmpty()){
+				multipleBirths.add(i);
+				System.out.println("Family "+uniqueId+ " has multiple births. The following children are born on the same day:");
+				System.out.println(children.get(i));
+				for(int j = 0; j < birthIndices.size(); j++){
+					System.out.println(children.get(birthIndices.get(j)));
+				}
+			}
+		}
+	}
+	
+	public boolean sameUniqueId(Family family){
+		if(uniqueId.equals(family.uniqueId)){
+			return true;
+		}
+		return false;
+	}
+	
 }
